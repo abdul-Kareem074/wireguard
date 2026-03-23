@@ -1,0 +1,47 @@
+<%= form_with(model: vpn_server) do |form| %>
+  <% if vpn_server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(vpn_server.errors.count, "error") %> prohibited this vpn_server from being saved:</h2>
+
+      <ul>
+        <% vpn_server.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :public_ip %>
+    <%= form.text_field :public_ip %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :interface_name %>
+    <%= form.text_field :interface_name %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :public_key %>
+    <%= form.text_field :public_key %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :private_key %>
+    <%= form.text_field :private_key %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :port %>
+    <%= form.number_field :port %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: 'btn' %>
+  </div>
+<% end %>

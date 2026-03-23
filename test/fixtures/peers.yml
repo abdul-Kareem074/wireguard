@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  public_key: MyText
+  private_key: MyText
+  allowed_ips: MyString
+  vpn_server: one
+  user: one
+
+two:
+  name: MyString
+  public_key: MyText
+  private_key: MyText
+  allowed_ips: MyString
+  vpn_server: two
+  user: two

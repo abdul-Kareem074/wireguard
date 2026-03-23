@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WireGuard Dashboard</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <nav>
+      <% if user_signed_in? %>
+        <%= link_to 'Dashboard', root_path %>
+        <%= link_to 'VPN Servers', vpn_servers_path %>
+        <%= link_to 'Peers', peers_path %>
+        <% if current_user&.admin? %>
+          <%= link_to 'Users', '#' %> <!-- Add users management if needed -->
+        <% end %>
+        <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
+      <% end %>
+    </nav>
+
+    <div class="container">
+      <p class="alert alert-notice"><%= notice %></p>
+      <p class="alert alert-alert"><%= alert %></p>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

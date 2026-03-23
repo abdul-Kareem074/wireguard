@@ -1,0 +1,36 @@
+<h1>VPN Servers</h1>
+
+<%= link_to 'New VPN Server', new_vpn_server_path, class: 'btn' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Public IP</th>
+      <th>Interface</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vpn_servers.each do |vpn_server| %>
+      <tr>
+        <td><%= vpn_server.name %></td>
+        <td><%= vpn_server.public_ip %></td>
+        <td><%= vpn_server.interface_name %></td>
+        <td class="<%= WireguardService.interface_up?(vpn_server.interface_name) ? 'status-up' : 'status-down' %>">
+          <%= WireguardService.interface_up?(vpn_server.interface_name) ? 'Up' : 'Down' %>
+        </td>
+        <td>
+          <%= link_to 'Show', vpn_server, class: 'btn' %>
+          <%= link_to 'Edit', edit_vpn_server_path(vpn_server), class: 'btn' %>
+          <%= link_to 'Destroy', vpn_server, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% if current_user&.admin? %>
+            <%= link_to 'Start', start_vpn_server_path(vpn_server), class: 'btn' %>
+            <%= link_to 'Stop', stop_vpn_server_path(vpn_server), class: 'btn' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

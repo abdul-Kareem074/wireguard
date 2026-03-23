@@ -1,0 +1,27 @@
+<h1>WireGuard Dashboard</h1>
+
+<h2>VPN Servers</h2>
+<% @vpn_servers.each do |server| %>
+  <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+    <h3><%= server.name %></h3>
+    <p>IP: <%= server.public_ip %></p>
+    <p class="<%= WireguardService.interface_up?(server.interface_name) ? 'status-up' : 'status-down' %>">
+      Status: <%= WireguardService.interface_up?(server.interface_name) ? 'Up' : 'Down' %>
+    </p>
+    <% if current_user&.admin? %>
+      <%= link_to 'Start', start_vpn_server_path(server), class: 'btn' %>
+      <%= link_to 'Stop', stop_vpn_server_path(server), class: 'btn' %>
+    <% end %>
+    <%= link_to 'View', server, class: 'btn' %>
+  </div>
+<% end %>
+
+<h2>Your Peers</h2>
+<% @peers.each do |peer| %>
+  <div style="border: 1px solid #ddd; padding: 10px; margin-bottom: 10px;">
+    <h3><%= peer.name %></h3>
+    <p>Server: <%= peer.vpn_server.name %></p>
+    <p>Allowed IPs: <%= peer.allowed_ips %></p>
+    <%= link_to 'Download Config', download_config_peer_path(peer), class: 'btn' %>
+  </div>
+<% end %>

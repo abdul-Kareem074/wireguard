@@ -1,0 +1,38 @@
+<h1><%= @vpn_server.name %></h1>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vpn_server.name %>
+</p>
+
+<p>
+  <strong>Public IP:</strong>
+  <%= @vpn_server.public_ip %>
+</p>
+
+<p>
+  <strong>Interface Name:</strong>
+  <%= @vpn_server.interface_name %>
+</p>
+
+<p>
+  <strong>Port:</strong>
+  <%= @vpn_server.port %>
+</p>
+
+<p>
+  <strong>Public Key:</strong>
+  <%= @vpn_server.public_key %>
+</p>
+
+<p class="<%= WireguardService.interface_up?(@vpn_server.interface_name) ? 'status-up' : 'status-down' %>">
+  <strong>Status:</strong>
+  <%= WireguardService.interface_up?(@vpn_server.interface_name) ? 'Up' : 'Down' %>
+</p>
+
+<% if current_user&.admin? %>
+  <%= link_to 'Start', start_vpn_server_path(@vpn_server), class: 'btn' %>
+  <%= link_to 'Stop', stop_vpn_server_path(@vpn_server), class: 'btn' %>
+<% end %>
+<%= link_to 'Edit', edit_vpn_server_path(@vpn_server), class: 'btn' %> |
+<%= link_to 'Back', vpn_servers_path, class: 'btn' %>

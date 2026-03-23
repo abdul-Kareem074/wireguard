@@ -1,0 +1,49 @@
+<%= form_with(model: peer) do |form| %>
+  <% if peer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(peer.errors.count, "error") %> prohibited this peer from being saved:</h2>
+
+      <ul>
+        <% peer.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :vpn_server %>
+    <%= form.collection_select :vpn_server_id, VpnServer.all, :id, :name %>
+  </div>
+
+  <% if current_user&.admin? %>
+    <div class="form-group">
+      <%= form.label :user %>
+      <%= form.collection_select :user_id, User.all, :id, :email %>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :public_key %>
+    <%= form.text_field :public_key %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :private_key %>
+    <%= form.text_field :private_key %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :allowed_ips %>
+    <%= form.text_field :allowed_ips %>
+  </div>
+
+  <div class="form-group">
+    <%= form.submit class: 'btn' %>
+  </div>
+<% end %>
